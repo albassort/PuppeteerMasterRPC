@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@ghostery/adblocker-puppeteer": "^2.5.0",
+    "async-lock": "^1.4.1",
+    "fast-json-stringify": "^6.0.1",
+    "fast-safe-stringify": "^2.1.1",
+    "jsesc": "^3.1.0",
+    "node-unix-socket": "^0.2.7",
+    "pupeteer": "^0.0.1",
+    "puppeteer": "^24.2.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-adblocker": "^2.13.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}
