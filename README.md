@@ -9,8 +9,9 @@ Puppeteer Master is a simple RPC for puppeteer to communicate between puppeteer 
   - JSON RPC
 
 # Limitations
-Current, each connection is page. So to use multiple pages at once you need multiple socket connection, but multiple threads works because there is a lock while processing each command
+Currently, each connection is a page in the browser. So to use multiple pages at once you need multiple socket connection, but multiple threads works because there is a lock while processing each command. The browser will switch to the requesting connection before executing your request. 
 
+After each connection disconnects, the page is destroyed.
 
 
 # Packet Format
@@ -79,7 +80,7 @@ query
 html: HTML DATA -- The html data of the selector you asked for!
 -
 DumpPage
-respoonses: JsonObject -- Present if requested, contains all assets downloaded by the request.
+responses: JsonObject -- Present if requested, contains all assets downloaded by the request.
 html: HTML DATA -- The entire webpage's html content
 -
 ```
@@ -89,7 +90,7 @@ html: HTML DATA -- The entire webpage's html content
 {
   "headers": String-String Keyval Pair -- The request headers,
   "body": Base64-Encoded String -- The body of the url requested. Images, Videos, JS Code, etc. Useful for webscraping,
-  "url": String -- The URL Reqeusted
+  "url": String -- The URL requested
 }
 ```
 

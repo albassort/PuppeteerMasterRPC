@@ -101,35 +101,8 @@ proc requestPuppeteer*(a : Socket, request : PuppeteerRequest) : Result[JsonNode
       echo "=="
       err TimedOut
 
-proc teamToImage*(dump : PageDump, hltvData : seq[HltvMatch], urls: var HashSet[string]): Table[string, ImageDataAndType] = 
-  var imgData = newTable[string, string]()
-  var picUrlToName = newTable[string, string]()
-  var imageToUrl = initTable[string, ImageDataAndType]() 
 
-  for match in hltvData:
-    let players = @[match.playerLeft, match.playerRight] 
-    for player in players:
-      if player.isNone():
-        continue
-      let playerGot = player.get()
-      picUrlToName[playerGot.playerImg] = playerGot.playerName
-      urls.incl(playerGot.playerImg)
-  for url in urls:
-    if url notin dump.responses: 
-      echo "not found:"
-      echo url
-      continue
-    let data = dump.responses[url].body 
-    let imageFormat = dump.responses[url].headers["content-type"]
-    let output = new ImageDataAndType
-    output[].data = data 
-    output[].format = imageFormat
-    #TODO: This doesn't handle all image formats.
-    imageToUrl[picUrlToName[url]] = output[]
-
-  result = imageToUrl
  
-when isMainModule:
   #[
   let pageRequest = PuppeteerRequest(call: GoToPage, url :  url)
   let dumpRequest = PuppeteerRequest(call: DumpPage, includeNetwork : true)
