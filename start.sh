@@ -1,4 +1,4 @@
 #!/bin/bash
-while true; do;
+while true; do
   node ./puppeteerRpc.js
-end;
+done

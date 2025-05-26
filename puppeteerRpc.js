@@ -169,7 +169,7 @@ async function parseReqeust(json, id) {
     case "type": {
       await pages[id].type(params.typeSelector, params.text)
       response = { status: 0 }
-      breakl
+      break;
     };
     case "query": {
       const bodyHandle = await page.$(params.selector);

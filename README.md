@@ -57,7 +57,7 @@ query - Gets the specific contents of the selector provided. Less heavy than a f
 -
 type - Types the given text in the first element which meets the CSS selector provided
   text: String -- The text you wish to type in the selected element
-  selector: String -- The CSS selector you wish to type text into
+  typeSelector String -- The CSS selector you wish to type text into
 -
 ping -- Checks if the daemon is alive
 -
