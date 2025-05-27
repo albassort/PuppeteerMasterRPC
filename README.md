@@ -94,3 +94,28 @@ html: HTML DATA -- The entire webpage's html content
 }
 ```
 
+## Examples
+
+I have programmed a wrapper in Nim for my THB project, you can find it [here](https://raw.githubusercontent.com/albassort/puppeteerRPC/refs/heads/master/puppeteerRPC.nim)
+Here is an example of its API; the same principles work in any language. 
+
+```nim
+let pageRequest = PuppeteerRequest(call: GoToPage, url :  "http://localhost:5173")
+
+echo requestPuppeteer(socket, pageRequest).get()
+
+let getGetMe = PuppeteerRequest(call: Query, selector : "#getme")
+
+let body = parseHtml(requestPuppeteer(socket, getGetMe).get()["html"].getStr)
+
+doAssert body[0].innerText == "GET ME"
+
+let typeInTypy = PuppeteerRequest(call: Type, typeSelector : "#enter-in-me", text : testString)
+
+echo requestPuppeteer(socket, typeInTypy).get()
+
+let dontClick = PuppeteerRequest(call: Click, selector : "")
+echo requestPuppeteer(socket, dontClick).get()
+let clicky = PuppeteerRequest(call: Click, selector : "#click-me")
+```
+The full example is in ./test/test.nim.
