@@ -1,4 +1,5 @@
 import puppeteerRPC
+import tables
 import print
 import net 
 import options
@@ -8,9 +9,13 @@ import json
 import os
 import htmlparser
 import xmltree
+import base64
+import strutils
 
 let testString = "hehe"
+let tofuReference = readFile("../RPCTester/src/assets/tofu-vegan.gif")
 var socket = newSocket(AF_UNIX,SOCK_SEQPACKET, IPPROTO_IP)
+
 connectUnix(socket, "../puppeteer.sock")
 let pageRequest = PuppeteerRequest(call: GoToPage, url :  "http://localhost:5173")
 
@@ -43,10 +48,18 @@ let getResult = PuppeteerRequest(call: Query, selector : ".result")
 #Json within json haha
 let result = parseJson(requestPuppeteer(socket, getResult).get()["html"].getStr)
 
-doAssert(result["successful"].getBool == true) 
+doAssert result["successful"].getBool == true 
 
-doAssert(result["goodEnter"].getStr == testString) 
+doAssert result["goodEnter"].getStr == testString 
 
-print responses
+var tofuUrl : string
 
-sleep 10000
+for x in responses.keys:
+  if x.contains("tofu"):
+    tofuUrl = x
+    break;
+
+
+let tofuGot = responses[tofuUrl].body.decode()
+
+doAssert tofuReference == tofuGot
